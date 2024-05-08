@@ -1,24 +1,35 @@
-//
-//  ContentView.swift
-//  finalProject
-//
-//  Created by HARMON, AUDREY on 5/1/24.
-//
-
 import SwiftUI
 
+
 struct ContentView: View {
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+
+        TabView {
+            Astronauts()
+                .tabItem {
+                    Label("Astronauts", systemImage: "person")
+                }
+            POD()
+                .tabItem {
+                    Label("POD", systemImage: "book")
+                }
+            
+            ISSMap()
+                .tabItem {
+                    Label("ISS", systemImage: "book")
+                }
         }
-        .padding()
     }
 }
 
-#Preview {
-    ContentView()
+    
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
 }
+
+ 
+
+ 
