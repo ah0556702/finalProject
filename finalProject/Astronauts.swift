@@ -7,24 +7,29 @@
 
 import SwiftUI
 
-struct Astros: Codable {
+struct AstronautResponse: Codable {
     let message: String
-    let people: People
+    let people: [Astronaut]
+    let number: String
 }
 
-struct People: Codable {
+struct Astronaut: Codable {
     let name: String
     let craft: String
 }
 
 struct Astronauts: View {
-    @State var responseData3: Astros?
+    @State var responseData3: AstronautResponse
     public var body: some View {
         VStack {
-            if let responseData3 = responseData3 {
+            if let responseData3 = responseData3?.people {
                 Text("Astronomy Picture of the Day")
                     .bold(true)
-                Text("\(responseData3.people.name)")
+                
+                ForEach(responseData3, id: \.name) {
+                    astronaut in
+                    Text(astronaut.name)
+                }
             } else {
                 Text("Loading data...")
             }
@@ -47,10 +52,9 @@ struct Astronauts: View {
             }
             do {
                 let decoder = JSONDecoder()
-                let response = try decoder.decode(Astros.self, from: data)
+                let response = try decoder.decode(AstronautResponse.self, from: data)
                 DispatchQueue.main.async {
                     self.responseData3 = response
-                    print(self.responseData3)
                 }
                 print(response)
             } catch {

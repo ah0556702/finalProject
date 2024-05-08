@@ -6,13 +6,12 @@
 //
 
 import SwiftUI
+import AVKit
 
 
 struct NasaPicture: Codable {
-    let copyright: String
     let date: String
     let explanation: String
-    let hdurl: String
     let title: String
     let url: String
 }
@@ -24,7 +23,7 @@ struct POD: View {
             if let responseData2 = responseData2 {
                 Text("Astronomy Picture of the Day")
                     .bold(true)
-                AsyncImage(url: URL(string: responseData2.hdurl)) {
+                AsyncImage(url: URL(string: responseData2.url)) {
                     image in
                     image.resizable()
                 } placeholder: {
