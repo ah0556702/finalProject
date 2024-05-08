@@ -9,16 +9,16 @@ struct ContentView: View {
         TabView {
             Astronauts()
                 .tabItem {
-                    Label("Astronauts", systemImage: "person")
+                    Label("Astronauts", systemImage: "moon.stars")
                 }
             POD()
                 .tabItem {
-                    Label("POD", systemImage: "book")
+                    Label("POD", systemImage: "star")
                 }
             
             ISSMap()
                 .tabItem {
-                    Label("ISS", systemImage: "book")
+                    Label("ISS", systemImage: "mappin.and.ellipse")
                 }
         }
     }

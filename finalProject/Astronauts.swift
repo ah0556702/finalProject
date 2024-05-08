@@ -21,22 +21,36 @@ struct People: Codable {
 struct Astronauts: View {
     @State var responseData3: AstronautResponse?
     public var body: some View {
-        VStack {
-            if let responseData3 = responseData3?.people {
-                Text("ISS Astronauts")
-                    .bold(true)
-                
-                ForEach(responseData3, id: \.name) {
-                    astronaut in
-                    Text(astronaut.name)
+        ZStack(alignment:.bottom) {
+//            RadialGradient(gradient: Gradient(colors: [Color(red: 0, green: 0, blue: 0.2), Color.black, Color.white]), center: .center, startRadius: 2, endRadius: 650)
+//                .ignoresSafeArea()
+            
+            
+            
+            VStack {
+                if let responseData3 = responseData3?.people {
+                    Text("ISS Astronauts")
+                        .bold(true)
+                    
+                    List(responseData3, id: \.name) {
+                        astronaut in
+                        Text(astronaut.name)
+                    }.scrollContentBackground(.hidden)
+                    
+                } else {
+                    Text("Loading data...")
                 }
-            } else {
-                Text("Loading data...")
             }
-        } .onAppear{
-            getAstronauts()
+            Image("overlay")
+                .resizable()
+                .scaledToFit()
+            
+            }.onAppear{
+                getAstronauts()
         }
+        
     }
+    
     
     private func getAstronauts(){
         guard let url = URL(string: "http://api.open-notify.org/astros.json") else {

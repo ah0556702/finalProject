@@ -19,21 +19,27 @@ struct NasaPicture: Codable {
 struct POD: View {
     @State private var responseData2: NasaPicture?
     var body: some View {
-        VStack {
-            if let responseData2 = responseData2 {
-                Text("Astronomy Picture of the Day")
-                    .bold(true)
-                AsyncImage(url: URL(string: responseData2.url)) {
-                    image in
-                    image.resizable()
-                } placeholder: {
-                    Color.black
+        ZStack {
+            RadialGradient(gradient: Gradient(colors: [Color(red: 0, green: 0, blue: 0.2), Color.black, Color.white]), center: .center, startRadius: 2, endRadius: 650)
+                .ignoresSafeArea()
+            
+            VStack {
+                if let responseData2 = responseData2 {
+                    Text("Astronomy Picture of the Day")
+                        .bold(true)
+                    AsyncImage(url: URL(string: responseData2.url)) {
+                        image in
+                        image.resizable()
+                    } placeholder: {
+                        Color.black
+                    }
+                    .frame(width: 328, height: 228)
+                    .clipShape(.rect(cornerRadius: 25))
+                    Text("\(responseData2.explanation)")
+                        .padding(25)
+                } else {
+                    Text("Loading data...")
                 }
-                .frame(width: 328, height: 228)
-                .clipShape(.rect(cornerRadius: 25))
-                Text("\(responseData2.explanation)")
-            } else {
-                Text("Loading data...")
             }
         }
         .onAppear {
