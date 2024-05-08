@@ -9,21 +9,21 @@ import SwiftUI
 
 struct AstronautResponse: Codable {
     let message: String
-    let people: [Astronaut]
-    let number: String
+    let people: [People]
+    let number: Int
 }
 
-struct Astronaut: Codable {
+struct People: Codable {
     let name: String
     let craft: String
 }
 
 struct Astronauts: View {
-    @State var responseData3: AstronautResponse
+    @State var responseData3: AstronautResponse?
     public var body: some View {
         VStack {
             if let responseData3 = responseData3?.people {
-                Text("Astronomy Picture of the Day")
+                Text("ISS Astronauts")
                     .bold(true)
                 
                 ForEach(responseData3, id: \.name) {
